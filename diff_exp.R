@@ -27,10 +27,6 @@ if(length(args) == 3){
   seurat_obj <- SetIdent(seurat_obj, sicnv_ann$Barcode, sicnv_ann$stroma)
 }
 
-# finding spatially variable features given annotations (either from seurat or sicnv)
-fibro_hallmark_gene_sets <- read.csv("~/Documents/data/fibro_hallmark_gene_sets.applescript")
-fibro_hallmark_gene_sets <- fibro_hallmark_gene_sets[which(fibro_hallmark_gene_sets$FDR < 0.05),]
-
 for(cluster in levels(seurat_obj@active.ident)){
   markers <- FindMarkers(seurat_obj, test.use = "wilcox", ident.1 = cluster)
   write.csv(markers, paste0(out_dir, "/", sample, "/", cluster, "_markers.csv"))
